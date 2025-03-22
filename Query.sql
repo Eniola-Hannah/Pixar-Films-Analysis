@@ -52,3 +52,5 @@ GROUP BY film, role_type, name
 HAVING COUNT(*) > 1;
 
 CREATE TABLE cleaned_pixar_people AS SELECT DISTINCT * FROM pixar_people;
+
+SELECT * FROM cleaned_pixar_people;   -- Exports as an external file
