@@ -17,3 +17,11 @@ FIELDS TERMINATED BY ","
 ENCLOSED BY '"'
 LINES TERMINATED BY "\r\n"
 IGNORE 1 LINES;
+
+-- Data Cleaning
+-- Standardizing Date formats  
+SET SQL_SAFE_UPDATES = 0;
+UPDATE pixar_films
+SET Release_date = STR_TO_DATE(Release_date, "%m/%d/%YYYY");
+ALTER TABLE pixar_films
+MODIFY COLUMN Release_date DATE;
