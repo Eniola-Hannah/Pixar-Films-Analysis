@@ -209,21 +209,49 @@ SELECT metacritic_score AS X,
 -- (b) What is the distribution of Pixar films by CinemaScore rating, and how does it impact financial success?
 SELECT cinema_score, COUNT(cinema_score) AS cinemaScore_distribution FROM public_response
 GROUP BY cinema_score;
+-- Most Pixar films receive A or A+ ratings, showing strong audience approval
 
-WITH CTE AS (
-SELECT film, cinema_score, CASE
-WHEN cinema_score = "A+" THEN "Excellent"
-WHEN cinema_score = "A" THEN "Very good"
-WHEN cinema_score = "A-" THEN "Good"
-WHEN cinema_score = "NA" THEN "Not available"
-END AS CinemaScore_rating FROM public_response
-) SELECT c.* , b.box_office_worldwide FROM CTE AS c
-JOIN box_office AS b
-ON c.film = b.film
-ORDER BY b.box_office_worldwide DESC;
+SELECT 
+    p.cinema_score,
+    ROUND(AVG(b.box_office_us_canada), 2) AS avg_us_canada_revenue,
+    ROUND(AVG(b.box_office_other), 2) AS avg_international_revenue,
+    ROUND(AVG(b.box_office_worldwide), 2) AS avg_worldwide_revenue
+FROM public_response AS p
+JOIN box_office AS b ON p.film = b.film
+GROUP BY P.cinema_score
+ORDER BY avg_worldwide_revenue DESC;
+
 
 -- (c) Have audience ratings improved or declined over the years?
 -- Lag function
+
+
+-- 3.	Awards and Recognition:
+-- (a) Which Pixar films have won or been nominated for Academy Awards?
+SELECT film, award_type, status FROM academy
+WHERE status in ("Won", "Nominated");
+
+-- (b) How does winning an Oscar impact a film's financial success?
+SELECT a.film, a.status, b.box_office_worldwide, CASE
+WHEN b.box_office_worldwide > b.budget * 2 THEN "Positive_impact"
+ELSE "Negative impact" END AS Financial_success
+FROM academy AS a JOIN box_office AS b
+ON a.film = b.film
+WHERE status = "won";
+-- Majority of the movie that won an oscar  did well financially
+
+
+-- (c) Which directors and writers have worked on the most award-winning Pixar films?
+SELECT c.name, c.role_type, c.film, a.status FROM cleaned_pixar_people AS c
+JOIN academy AS a 
+ON a.film = c.film
+WHERE role_type IN ("Director", "Screenwriter", "Storywriter") AND status = "won";
+
+select film, count(status) as count from academy
+where status = "won"
+group by film
+order by count desc;
+
 
 SELECT * FROM academy;
 SELECT * FROM box_office;
