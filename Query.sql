@@ -147,3 +147,88 @@ SELECT c.film, CONCAT(c.ROI, " %") AS ROI, CONCAT(FLOOR(YEAR(p.release_date) / 1
 JOIN pixar_films AS p
 ON c.film = p.film
 ORDER BY decade;
+
+
+
+-- 2.	Audience and Critical Reception:
+-- (a) How do audience ratings (IMDB, Rotten Tomatoes, Metacritic) correlate with box office earnings?
+-- IMDB correlation
+SELECT ((COUNT(*) * SUM(XY)) - (SUM(X) * SUM(Y))) / 
+SQRT( 
+	((COUNT(*) * SUM(X_squared)) - (SUM(X) * SUM(X))) * 
+	((COUNT(*) * SUM(Y_squared)) - (SUM(Y) * SUM(Y)))
+)
+AS Correlation_coefficient
+FROM (
+SELECT imdb_score AS X, 
+	   box_office_worldwide AS Y, 
+	   imdb_score * box_office_worldwide AS XY, 
+       imdb_score * imdb_score AS X_squared,
+       box_office_worldwide * box_office_worldwide AS Y_squared 
+       FROM box_office AS b
+       JOIN public_response AS p 
+       ON b.film = p.film 
+) AS Subquery;
+
+-- Rotten tomatoe correlation
+SELECT ((COUNT(*) * SUM(XY)) - (SUM(X) * SUM(Y))) / 
+SQRT( 
+	((COUNT(*) * SUM(X_squared)) - (SUM(X) * SUM(X))) * 
+	((COUNT(*) * SUM(Y_squared)) - (SUM(Y) * SUM(Y)))
+)
+AS Correlation_coefficient
+FROM (
+SELECT rotten_tomatoes_score AS X, 
+	   box_office_worldwide AS Y, 
+	   rotten_tomatoes_score * box_office_worldwide AS XY, 
+       rotten_tomatoes_score * rotten_tomatoes_score AS X_squared,
+       box_office_worldwide * box_office_worldwide AS Y_squared 
+       FROM box_office AS b
+       JOIN public_response AS p 
+       ON b.film = p.film 
+) AS Subquery;
+
+-- Metacritic correlation
+SELECT ((COUNT(*) * SUM(XY)) - (SUM(X) * SUM(Y))) / 
+SQRT( 
+	((COUNT(*) * SUM(X_squared)) - (SUM(X) * SUM(X))) * 
+	((COUNT(*) * SUM(Y_squared)) - (SUM(Y) * SUM(Y)))
+)
+AS Correlation_coefficient
+FROM (
+SELECT metacritic_score AS X, 
+	   box_office_worldwide AS Y, 
+	   metacritic_score * box_office_worldwide AS XY, 
+       metacritic_score * metacritic_score AS X_squared,
+       box_office_worldwide * box_office_worldwide AS Y_squared 
+       FROM box_office AS b
+       JOIN public_response AS p 
+       ON b.film = p.film 
+) AS Subquery;
+
+-- (b) What is the distribution of Pixar films by CinemaScore rating, and how does it impact financial success?
+SELECT cinema_score, COUNT(cinema_score) AS cinemaScore_distribution FROM public_response
+GROUP BY cinema_score;
+
+WITH CTE AS (
+SELECT film, cinema_score, CASE
+WHEN cinema_score = "A+" THEN "Excellent"
+WHEN cinema_score = "A" THEN "Very good"
+WHEN cinema_score = "A-" THEN "Good"
+WHEN cinema_score = "NA" THEN "Not available"
+END AS CinemaScore_rating FROM public_response
+) SELECT c.* , b.box_office_worldwide FROM CTE AS c
+JOIN box_office AS b
+ON c.film = b.film
+ORDER BY b.box_office_worldwide DESC;
+
+-- (c) Have audience ratings improved or declined over the years?
+-- Lag function
+
+SELECT * FROM academy;
+SELECT * FROM box_office;
+SELECT * FROM genres;
+SELECT * FROM pixar_films;
+SELECT * FROM cleaned_pixar_people;  
+SELECT * FROM box_office;
+SELECT * FROM public_response;
