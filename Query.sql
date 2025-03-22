@@ -263,6 +263,46 @@ ON m.film = c.film
 WHERE role_type IN ("Director", "Screenwriter", "Storywriter");
 
 
+-- 4.	Genre Trends and Film Characteristics:
+-- (a) Wich genres (Adventure, Comedy, Fantasy, etc.) are most common among Pixar films?
+SELECT value, COUNT(value) AS count FROM genres
+WHERE category = "Genre"
+GROUP BY value
+ORDER BY count DESC;
+
+-- (b) What is the average runtime of Pixar films over different periods, and does it affect box office performance?
+SELECT min(YEAR(Release_date)), max(YEAR(Release_date)) from pixar_films;
+SELECT CASE 
+			WHEN YEAR(Release_date) BETWEEN "1990" AND "1999" THEN "1990 - 1999"
+            WHEN YEAR(Release_date) BETWEEN "2000" AND "2009" THEN "2000 - 2009"
+            WHEN YEAR(Release_date) BETWEEN "2010" AND "2019" THEN "2010 - 2019"
+            ELSE "2020 - Present"
+            END AS 10_yr_period, ROUND(AVG(Run_time), 2) AS avg_runtime FROM pixar_films
+GROUP BY 10_yr_period;
+		
+SELECT CASE 
+			WHEN YEAR(Release_date) BETWEEN "1990" AND "1999" THEN "1990 - 1999"
+            WHEN YEAR(Release_date) BETWEEN "2000" AND "2009" THEN "2000 - 2009"
+            WHEN YEAR(Release_date) BETWEEN "2010" AND "2019" THEN "2010 - 2019"
+            ELSE "2020 - Present"
+            END AS period, 
+            ROUND(AVG(Run_time), 2) AS avg_runtime,
+            ROUND(AVG(b.box_office_worldwide), 2) AS avg_box_office 
+FROM pixar_films AS p LEFT JOIN box_office AS b 
+ON p.film = b.film
+GROUP BY period
+ORDER BY avg_box_office DESC;
+
+-- (c) Are certain genres more likely to receive higher critic or audience scores?
+SELECT g.value, ROUND(AVG(p.metacritic_score), 1) AS avg_critic, ROUND(AVG(p.imdb_score), 1) AS avg_audience_score FROM public_response AS p
+JOIN genres AS g
+ON p.film = g.film
+WHERE category = "Genre"
+GROUP BY g.value
+ORDER BY avg_critic DESC, avg_audience_score DESC;
+
+
+
 SELECT * FROM academy;
 SELECT * FROM box_office;
 SELECT * FROM genres;
