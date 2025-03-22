@@ -130,3 +130,20 @@ SELECT budget AS X,
 ) AS Subquery;
 -- No Significant correlation btwn Budget and box office International ~~ A weak positive correlation 
 -- +0.1 - +0.3 = weak positive correlation
+
+
+-- (d) Which films achieved the highest return on investment (ROI), and how does this compare across different decades?
+WITH CTE AS (
+SELECT film, ROUND(((box_office_worldwide - budget)/budget) * 100, 2) AS ROI FROM box_office ORDER BY ROI DESC
+LIMIT 10
+) 
+SELECT film, CONCAT(ROI, " %") AS ROI FROM CTE;
+
+WITH CTE AS (
+SELECT film, ROUND(((box_office_worldwide - budget)/budget) * 100, 2) AS ROI FROM box_office ORDER BY ROI DESC
+LIMIT 10
+) 
+SELECT c.film, CONCAT(c.ROI, " %") AS ROI, CONCAT(FLOOR(YEAR(p.release_date) / 10) * 10, "s") AS decade FROM CTE AS c
+JOIN pixar_films AS p
+ON c.film = p.film
+ORDER BY decade;
