@@ -232,25 +232,35 @@ SELECT film, award_type, status FROM academy
 WHERE status in ("Won", "Nominated");
 
 -- (b) How does winning an Oscar impact a film's financial success?
-SELECT a.film, a.status, b.box_office_worldwide, CASE
-WHEN b.box_office_worldwide > b.budget * 2 THEN "Positive_impact"
-ELSE "Negative impact" END AS Financial_success
-FROM academy AS a JOIN box_office AS b
+SELECT CASE 
+		WHEN a.status = "won" THEN "Oscar_winners"
+        ELSE "Non_Oscar_winners"
+        END AS Oscar, 
+        ROUND(AVG(b.box_office_us_canada), 2) AS avg_us_canada_finance,
+        ROUND(AVG(b.box_office_other), 2) AS Avg_international_finace,
+        ROUND(AVG(b.box_office_worldwide), 2) AS Avg_worldwide_finace
+FROM academy AS a LEFT JOIN box_office AS b
 ON a.film = b.film
-WHERE status = "won";
--- Majority of the movie that won an oscar  did well financially
+GROUP BY  a.status
+ORDER BY Avg_worldwide_finace DESC;
+        
+-- Oscar winning films has the highest financial success
 
 
 -- (c) Which directors and writers have worked on the most award-winning Pixar films?
-SELECT c.name, c.role_type, c.film, a.status FROM cleaned_pixar_people AS c
-JOIN academy AS a 
-ON a.film = c.film
-WHERE role_type IN ("Director", "Screenwriter", "Storywriter") AND status = "won";
-
-select film, count(status) as count from academy
-where status = "won"
-group by film
-order by count desc;
+WITH CTE AS (
+SELECT film, COUNT(status) AS count FROM academy
+WHERE status = "won"
+GROUP BY film
+ORDER BY count DESC
+), most_award_winning_film AS (
+SELECT * FROM CTE 
+WHERE count = (SELECT MAX(count) FROM CTE)
+) 
+SELECT c.name, c.role_type, m.film FROM cleaned_pixar_people AS c
+JOIN most_award_winning_film AS m
+ON m.film = c.film
+WHERE role_type IN ("Director", "Screenwriter", "Storywriter");
 
 
 SELECT * FROM academy;
