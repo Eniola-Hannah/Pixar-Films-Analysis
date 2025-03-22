@@ -50,3 +50,5 @@ HAVING COUNT(*) > 1;
 SELECT film, role_type, name, COUNT(*) AS count FROM pixar_people    -- Duplicate values present!
 GROUP BY film, role_type, name
 HAVING COUNT(*) > 1;
+
+CREATE TABLE cleaned_pixar_people AS SELECT DISTINCT * FROM pixar_people;
