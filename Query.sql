@@ -54,3 +54,43 @@ HAVING COUNT(*) > 1;
 CREATE TABLE cleaned_pixar_people AS SELECT DISTINCT * FROM pixar_people;
 
 SELECT * FROM cleaned_pixar_people;   -- Exports as an external file
+
+-- Data Exploration
+-- 1.	Financial Performance Analysis:
+-- (a) What are the top 5 highest-grossing Pixar films worldwide?
+SELECT film, box_office_worldwide FROM box_office
+ORDER BY box_office_worldwide DESC LIMIT 5;
+
+-- (b) How have Pixar films performed financially over the years? What is the relationship between budget and box office earnings? 
+-- Which films were the most profitable
+
+WITH CTE AS (
+SELECT film, budget, (box_office_worldwide - budget) AS profit FROM box_office 
+)
+SELECT Year(p.Release_date) AS Movie_year, c.film, C.PROFIT, CASE 
+WHEN c.profit > c.budget * 2 THEN "High profit" WHEN c.profit > 0 THEN "Low profit" ELSE "Loss" END AS financial_performance
+FROM CTE AS c INNER JOIN pixar_films AS p
+ON c.film = p.film
+ORDER BY Movie_year;
+
+SELECT film, budget, box_office_worldwide, CASE 
+			WHEN box_office_worldwide < (budget * 2) THEN "Flop"                                   -- Lost money or barely recovered costs
+			WHEN box_office_worldwide BETWEEN (budget * 2) AND (budget * 2.5) THEN "Break Even"    -- Covered costs but no major profit
+			WHEN box_office_worldwide BETWEEN (budget * 2.5) AND (budget * 4.5) THEN "Hit"         --  Profitable, made good returns
+            WHEN box_office_worldwide > (budget * 4.5) THEN "Block buster"                         -- A massive success, major profits
+			END AS relationship_term FROM box_office
+ORDER BY box_office_worldwide;
+
+WITH CTE AS (
+SELECT film, budget, box_office_worldwide, CASE
+			WHEN box_office_worldwide < (budget * 2) THEN "Flop"    
+			WHEN box_office_worldwide BETWEEN (budget * 2) AND (budget * 2.5) THEN "Break Even"
+			WHEN box_office_worldwide BETWEEN (budget * 2.5) AND (budget * 4.5) THEN "Hit"
+            WHEN box_office_worldwide > (budget * 4.5) THEN "Block buster"
+			END AS relationship_term FROM box_office
+ORDER BY box_office_worldwide
+) 
+SELECT film AS profitable_films FROM CTE
+WHERE relationship_term = "Block buster";
+
+-- (c) How does budget correlate with box office performance across different regions (US/Canada vs. International)?
