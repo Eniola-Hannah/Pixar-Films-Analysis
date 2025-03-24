@@ -8,7 +8,7 @@
 - [Data Dictionary](#Data-Dictionary)
 - [Project Objective](#Project-Objective)
 - [Data Cleaning](#Data-Cleaning)
-- [Data Exploration and Insights](#Data-Insights)
+- [Data Exploration and Insights](#Data-Exploration-and-Insights)
 - [Recommendations](#Recommendations)
 - [Files Details](#Files-Detail)
 - [Conclusion](#Conclusion)
@@ -80,7 +80,7 @@ With the evolution of the entertainment industry, analyzing Pixar films' perform
    - More details in problem statement file ~ `Business Problem Statement.docx`
 
 
-## Data-Cleaning
+## Data-Exploration-and-Insights
 During data cleaning, the following changes were made:
 - Standardizing Date formats
 ```sql
