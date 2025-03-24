@@ -5,12 +5,12 @@
 ## Table of contents
 - [Introduction](#Introduction)
 - [Project Overview](#Project-Overview)
-- [Data Disctionary](#Data-Dictionary)
+- [Data Dictionary](#Data-Dictionary)
 - [Project Objective](#Project-Objective)
-- [Data Cleaning](#Data-Cleaning-and-Transformation)
-- [Data Exploration and Insights](#Data-Exploration-and-Insights)
-- [Recommendation](#Recommendation)
-- [Files Details](#Files-Details)
+- [Data Cleaning](#Data-Cleaning)
+- [Data Exploration and Insights](#Data-Insights)
+- [Recommendations](#Recommendations)
+- [Files Details](#Files-Detail)
 - [Conclusion](#Conclusion)
 
 ## Introduction
@@ -68,7 +68,7 @@ such as box office earnings, audience ratings, critical scores, awards, and crea
 
 
 
-## Project Objectives
+## Project-Objective
 With the evolution of the entertainment industry, analyzing Pixar films' performance is crucial. This project aims to address the following Objectives
 
 1. Financial Performance
@@ -80,7 +80,7 @@ With the evolution of the entertainment industry, analyzing Pixar films' perform
    - More details in problem statement file ~ `Business Problem Statement.docx`
 
 
-## Data Cleaning
+## Data-Cleaning
 During data cleaning, the following changes were made:
 - Standardizing Date formats
 ```sql
@@ -110,7 +110,7 @@ SELECT * FROM cleaned_pixar_people;
 ---
 
 
-## Data Exploration and Insights
+## Data-Insights
 
 For each of the key business questions, SQL queries were used to extract meaningful insights:
 
@@ -163,7 +163,7 @@ c. Analyzed individuals that worked on the most financially successful film (Ins
 
 
 
-## Files-Details
+## Files-Detail
 
 | File Name                     | Description |
 |--------------------------------|-------------|
