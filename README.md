@@ -135,12 +135,13 @@ a. A weak positive correlatin between Critics(IMDB, Rotten tomatoes, Metacritics
 
 
 b. Distribution of films by CinemaScore rating
-  - A ~ 15
-  - A+ ~ 7
-  - A- ~ 3
-  - NA ~ 3
+  - Films with 'A' Cinemascore rating are 15
+  - Films with 'A+' Cinemascore rating are 7
+  - Films with 'A-' Cinemascore rating are 3
+  - Films with 'NA' (Not Available) Cinemascore rating are 3
 
-  - A+ Has the highest box office earning on an average meaning CinemaScore rating affects the film financial success
+
+  - A+ Has the highest box office earning on an average meaning CinemaScore rating impacts the financial success of a film.
 
     
 c.
