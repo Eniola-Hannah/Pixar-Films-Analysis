@@ -18,9 +18,11 @@ Pixar has built a reputation for producing high-quality animated films that capt
 This project aims to analyze the performance of Pixar films across various dimensions, including financial success, audience reception, critical acclaim, 
 and creative contributions.
 
+
 ## Project-Overview
 The dataset comprises multiple CSV files, each containing different aspects of Pixar films, 
 such as box office earnings, audience ratings, critical scores, awards, and creative team contributions.
+
 
 ### Initial Data Shape (Before Cleaning):
 - pixar_films.csv: 28 rows, 6 columns
@@ -65,27 +67,117 @@ such as box office earnings, audience ratings, critical scores, awards, and crea
 | academy         | status                 | Status of the award (e.g., won, nominated)                 |
 
 
+
 ## Project Objectives
-With the evolution of the entertainment industry, analyzing Pixar films' performance is crucial. This project aims to address the following questions:
+With the evolution of the entertainment industry, analyzing Pixar films' performance is crucial. This project aims to address the following Objectives
 
-### Financial Performance
-- What are the top 5 highest-grossing Pixar films worldwide?
-- How has Pixar's financial performance changed over the years?
-- What is the relationship between budget and box office earnings?
-- Which films achieved the highest return on investment (ROI)?
+1. Financial Performance
+2. Audience and Critical Reception
+3. Awards and Recognition
+4. Genre Trends and Film Characteristics
+5. Creative Team Contributions
 
-### Audience and Critical Reception
-- How do audience ratings (IMDB, Rotten Tomatoes, Metacritic) correlate with box office earnings?
-- What is the distribution of Pixar films by CinemaScore rating?
-- Have audience ratings improved or declined over the years?
+   - More details in problem statement file ~ `Business Problem Statement.docx`
+
+
+## Data Cleaning
+During data cleaning, the following changes were made:
+- Standardizing Date formats
+```sql
+SET SQL_SAFE_UPDATES = 0;
+UPDATE pixar_films
+SET Release_date = STR_TO_DATE(Release_date, "%m/%d/%YYYY");
+
+ALTER TABLE pixar_films
+MODIFY COLUMN Release_date DATE;
+```
+- checking for duplicates
+```sql
+SELECT film, role_type, name, COUNT(*) AS count FROM pixar_people    
+GROUP BY film, role_type, name
+HAVING COUNT(*) > 1;
+
+-- Duplicate values present!
+```
+- Insert into a new table Pixar_people records that contains no duplicate
+```sql
+CREATE TABLE cleaned_pixar_people AS SELECT DISTINCT * FROM pixar_people;
+```
+- Exports as an external file and the re-imported back to the workbench
+```
+SELECT * FROM cleaned_pixar_people;
+```
+---
+
+
+## Data Exploration and Insights
+
+For each of the key business questions, SQL queries were used to extract meaningful insights:
+
+### Financial Analysis
+a. Identified the top 5 highest-grossing films with 'Inside Out 2' being the highest.
+b. Found the relationship between budget and box office earning:
+   - 12 films happen to be 'block busters'
+   - 8 films were a 'Hit'
+   - 2 films were 'Break even'
+   - 5 films were a 'flop'
+c. No Significant correlation btwn Budget and box office. Correlation coefficient is about 0.2 
+d. ROI analysis revealed the most profitable films... 'Toy story' has the highest with 1214.79% Return on investment
+
+### Audience & Critical Reception
+a. A weak positive correlatin between Critics(IMDB, Rotten tomatoes, Metacritics) and box office revenue
+b. Distribution of films by CinemaScore rating
+  - A ~ 15
+  - A+ ~ 7
+  - A- ~ 3
+  - NA ~ 3
+
+  - A+ Has the highest box office earning on an average meaning CinemaScore rating affects the film financial success
+c.
 
 ### Awards and Recognition
-- Which Pixar films have won or been nominated for Academy Awards?
-- How does winning an Oscar impact a film's financial success?
-- Genre Trends and Film Characteristics
-- Which genres are most common among Pixar films?
-- What is the average runtime of Pixar films, and does it affect box office performance?
+a. About 22 films has either been nominated or won an Oscare Award.
+b. Films with Oscars tend to perform better financially.
+c. Certain directors have consistently worked on award-winning films.
+
+### Genre Trends
+a. Adventure and Animation are dominant genres, followed by Comedy.
+b. Longer runtimes result in higher earnings.
+c. Family and drama tend to receive higher critic and audience scores.
 
 ### Creative Team Contributions
-- Who are the most frequent directors, writers, and composers in Pixar’s history?
-- Is there a correlation between specific creators and the success of films?
+a. Identified the most frequent directors and writers.
+  - John Lasseter as the most frequent director
+  - Randy Newman as the most frequent musician
+  - Andrew Stanton as the most frequent writer.
+b. Kelsey Mann, Andrea Datzman, Dave Holstein were the creators with the most financial success of pixar films
+c. Analyzed individuals that worked on the most financially successful film (Inside out 2) and individuals that worked on critically acclaimed films (IMDB score above 8.0 is critically acclaimed)
+---
+
+## Recommendations
+- Pixar films with A or A+ CinemaScore (strong audience approval) tend to bring in the most revenue. It is important to prioritize audience engagement strategies by maintaining high storytelling quality, character development, and emotional depth in future films. 
+- Increase investment in genres that historically perform well.
+- Leverage successful directors and writers for future projects
+- Optimize budget allocation to maximize ROI.
+- Enhance audience engagement strategies to maintain high ratings.
+
+
+
+## Files-Details
+
+| File Name                     | Description |
+|--------------------------------|-------------|
+| `Business Problem Statement.docx` | Objective of the Analysis. |
+| `Query.sql`                   | Contains SQL scripts for data extraction and analysis. |
+| `pixar_films.csv`             | Contains core details about each Pixar film. |
+| `box_office.csv`              | Financial performance data. |
+| `academy.csv`                 | Academy Award nominations and wins. |
+| `genres.csv`                  | Film genre classifications. |
+| `public_response.csv`         | Audience ratings and critic scores. |
+| `pixar_people.csv`           | Information about key contributors (directors, writers, etc.)... Contains duplicate records. |
+| `cleaned_pixar_people.csv`   | Information about key contributors (directors, writers, etc.)... With no duplicates. |
+| `README.md`                   | Project documentation, including objectives, data details, analysis, and insights. |
+
+
+## Conclusion
+This project provides a comprehensive analysis of Pixar films, offering valuable insights into financial performance, audience reception, awards, genre trends, and creative team contributions. The findings will help guide strategic decision-making for future Pixar productions.
