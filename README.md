@@ -116,16 +116,24 @@ For each of the key business questions, SQL queries were used to extract meaning
 
 ### Financial Analysis
 a. Identified the top 5 highest-grossing films with 'Inside Out 2' being the highest.
+
+
 b. Found the relationship between budget and box office earning:
    - 12 films happen to be 'block busters'
    - 8 films were a 'Hit'
    - 2 films were 'Break even'
    - 5 films were a 'flop'
+
+     
 c. No Significant correlation btwn Budget and box office. Correlation coefficient is about 0.2 
+
+
 d. ROI analysis revealed the most profitable films... 'Toy story' has the highest with 1214.79% Return on investment
 
 ### Audience & Critical Reception
 a. A weak positive correlatin between Critics(IMDB, Rotten tomatoes, Metacritics) and box office revenue
+
+
 b. Distribution of films by CinemaScore rating
   - A ~ 15
   - A+ ~ 7
@@ -133,16 +141,26 @@ b. Distribution of films by CinemaScore rating
   - NA ~ 3
 
   - A+ Has the highest box office earning on an average meaning CinemaScore rating affects the film financial success
+
+    
 c.
 
 ### Awards and Recognition
 a. About 22 films has either been nominated or won an Oscare Award.
+
+
 b. Films with Oscars tend to perform better financially.
+
+
 c. Certain directors have consistently worked on award-winning films.
 
 ### Genre Trends
 a. Adventure and Animation are dominant genres, followed by Comedy.
+
+
 b. Longer runtimes result in higher earnings.
+
+
 c. Family and drama tend to receive higher critic and audience scores.
 
 ### Creative Team Contributions
@@ -150,9 +168,13 @@ a. Identified the most frequent directors and writers.
   - John Lasseter as the most frequent director
   - Randy Newman as the most frequent musician
   - Andrew Stanton as the most frequent writer.
+
+    
 b. Kelsey Mann, Andrea Datzman, Dave Holstein were the creators with the most financial success of pixar films
+
+
 c. Analyzed individuals that worked on the most financially successful film (Inside out 2) and individuals that worked on critically acclaimed films (IMDB score above 8.0 is critically acclaimed)
----
+
 
 ## Recommendations
 - Pixar films with A or A+ CinemaScore (strong audience approval) tend to bring in the most revenue. It is important to prioritize audience engagement strategies by maintaining high storytelling quality, character development, and emotional depth in future films. 
