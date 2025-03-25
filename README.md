@@ -72,12 +72,30 @@ such as box office earnings, audience ratings, critical scores, awards, and crea
 With the evolution of the entertainment industry, analyzing Pixar films' performance is crucial. This project aims to address the following Objectives
 
 1. Financial Performance
-2. Audience and Critical Reception
-3. Awards and Recognition
-4. Genre Trends and Film Characteristics
-5. Creative Team Contributions
+   - What are the top 5 highest-grossing Pixar films worldwide?
+   - How have Pixar films performed financially over the years? What is the relationship between budget and box office earnings? Which films were the most profitable
+   - How does budget correlate with box office performance across different regions (US/Canada vs. International)?
+   - Which films achieved the highest return on investment (ROI), and how does this compare across different decades?
 
-   - More details in problem statement file ~ `Business Problem Statement.docx`
+2. Audience and Critical Reception
+   - How do audience ratings (IMDB, Rotten Tomatoes, Metacritic) correlate with box office earnings?
+   - What is the distribution of Pixar films by CinemaScore rating, and how does it impact financial success?
+   - Have audience ratings improved or declined over the years?
+
+3. Awards and Recognition
+   - Which Pixar films have won or been nominated for Academy Awards?
+   - How does winning an Oscar impact a film's financial success?
+   - Which directors and writers have worked on the most award-winning Pixar films?
+
+4. Genre Trends and Film Characteristics
+   - Which genres (Adventure, Comedy, Fantasy, etc.) are most common among Pixar films?
+   - What is the average runtime of Pixar films over different periods, and does it affect box office performance?
+   - Are certain genres more likely to receive higher critic or audience scores?
+
+5. Creative Team Contributions
+   - Who are the most frequent directors, writers, and composers in Pixar's history?
+   - Is there a correlation between specific creators and the success of films?
+   - Which individuals have worked on the most financially successful and critically acclaimed Pixar films?
 
 
 ## Data-Exploration-and-Insights
@@ -115,10 +133,16 @@ SELECT * FROM cleaned_pixar_people;
 For each of the key business questions, SQL queries were used to extract meaningful insights:
 
 ### Financial Analysis
-a. Identified the top 5 highest-grossing films with 'Inside Out 2' being the highest.
+a. The top 5 highest-grossing pixar films are 
+   - 'Inside Out 2' with a figure of 1698030965
+   - 'Incredibles 2' with a figure of 1242805359
+   - 'Toy Story 4' with a figure of 1073394593
+   - 'Toy Story 3' with a figure of 1066969703
+   - 'Finding Dory' with a figure of 1028570889
 
 
-b. Found the relationship between budget and box office earning:
+b. Over the years, Pixar films have performed remarkably well financially, with 17 generating high profits, 7 yielding lower profits, and only 4 resulting in losses. 
+Found the relationship between budget and box office earning:
    - 12 films happen to be 'block busters'
    - 8 films were a 'Hit'
    - 2 films were 'Break even'
