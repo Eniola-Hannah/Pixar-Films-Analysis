@@ -147,11 +147,15 @@ Over the years, Pixar films have performed remarkably well at the box office:
    - 17 films generated high profits
    - 7 films yielded lower profits
    - 4 films resulted in losses
+
+
 There are some terms in the film industry used to define the relationship between budget and box office earning, they include;
    - flop: A movie that fails financially.
    - Break-even: Covered costs but no profit whatsoever
    - Hit: Profitable, made good returns
    - Blockbuster: A massive success, major profits
+
+
 Among Pixar films:
    - 22 films were classified as Blockbusters
    - 2 films were classified as Hits
@@ -162,6 +166,7 @@ c. Budget vs. Box Office Earnings Correlation
 There is a weak positive correlation between a film’s budget and its box office earnings in different regions:
    - US/Canada Region – Correlation coefficient: 0.1999
    - International Region – Correlation coefficient: 0.3389
+
 
 Correlation values between 0.1 and 0.3 indicate a weak positive correlation, meaning budget alone does not significantly influence box office earnings. Other factors, such as film stars, marketing/publicity, and regional audience preferences, may play a more significant role in a film’s success.
 
@@ -174,12 +179,15 @@ ROI measures a film’s profitability relative to its budget. The top 5 most pro
    - The Incredibles – 586.35%
    - Incredibles 2 – 521.40%
 
+
 ROI Comparison Across Decades
 A decade-wise comparison shows that the 1990s had the highest average ROI, indicating the most profitable era for Pixar films:
    - 1990s – 428.77% 
    - 2000s – 372.28%
    - 2010s – 314.51%
    - 2020s – 146.05%
+
+
 This trend suggests that earlier Pixar films had higher profitability relative to their budgets, while more recent productions, despite high earnings, may have faced increased production and marketing costs, affecting ROI.
 
 
