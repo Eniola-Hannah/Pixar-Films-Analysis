@@ -195,25 +195,49 @@ This trend suggests that earlier Pixar films had higher profitability relative t
 
 
 ### 2. Audience & Critical Reception
-a. Critics (IMDB, Rotten tomatoes, Metacritics) vs. Box office revenue Correlation
-There is a weak positive correlation between a film’s budget and its box office earnings in different regions:
-   - US/Canada Region – Correlation coefficient: 0.1999
-   - International Region – Correlation coefficient: 0.3389
+a. Correlation Between Critics’ Ratings and Box Office Revenue
+There is a weak positive correlation between a film’s ratings from critics and its box office earnings:
+   - IMDB vs. Box Office – Correlation coefficient: 0.2962
+   - Rotten Tomatoes vs. Box Office – Correlation coefficient: 0.2294
+   - Metacritic vs. Box Office – Correlation coefficient: 0.2152
 
 
-b. Distribution of films by CinemaScore rating
-  - Films with 'A' Cinemascore rating are 15
-  - Films with 'A+' Cinemascore rating are 7
-  - Films with 'A-' Cinemascore rating are 3
-  - Films with 'NA' (Not Available) Cinemascore rating are 3
+Since correlation values between 0.1 and 0.3 indicate a weak positive relationship, this suggests that critics' ratings (IMDB, Rotten Tomatoes, and Metacritic) do not significantly impact box office revenue.
+
+However, CinemaScore appears to have a stronger impact on box office earnings than critics' ratings, making it a more reliable indicator of a film’s financial success.
+
+b. Distribution of Films by CinemaScore Rating
+CinemaScore ratings reflect audience satisfaction based on surveys conducted at movie theaters. Here’s how Pixar films are distributed based on their CinemaScore ratings:   - Films with ‘A’ CinemaScore rating: 15
+   - Films with ‘A+’ CinemaScore rating: 7
+   - Films with ‘A-’ CinemaScore rating: 3
+   - Films with ‘NA’ (Not Available) CinemaScore rating: 3
 
 
-  - A+ Has the highest box office earning on an average meaning CinemaScore rating impacts the financial success of a film.
+This distribution highlights that the majority of Pixar films receive high audience approval, with most earning ‘A’ or ‘A+’ ratings, reinforcing their strong connection with viewers.
 
+
+A further analysis was made of average worldwide box office earnings per CinemaScore rating which shows that films with an A+ rating generate the highest average revenue, suggesting that a CinemaScore of A+ positively impacts a film’s financial success.
+   - A+	: 762162029.86
+   - A	: 705627954.13
+   - A-	: 309405952.67
+   - NA	: 71858621.50
+
+
+
+This reinforces the idea that audience sentiment at cinemas (CinemaScore) is a stronger predictor of box office success than critics' reviews.
     
-c.
+c. Trend in Audience Ratings Over the Years
+An analysis of audience ratings over time reveals that there has been no consistent improvement or decline. The number of films with improved ratings is equal to those with declined ratings, indicating a fluctuating trend rather than a clear upward or downward movement.
+   - First Rating: 1 (Initial baseline)
+   - Declined Rating: 13
+   - Improved Rating: 13
+   - No Change: 1
 
-### Awards and Recognition
+
+This suggests that audience perception of Pixar films has remained relatively stable over time, with both positive and negative shifts occurring in equal measure.
+
+
+### 3. Awards and Recognition
 a. About 22 films has either been nominated or won an Oscare Award.
 
 
