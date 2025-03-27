@@ -132,30 +132,65 @@ SELECT * FROM cleaned_pixar_people;
 
 For each of the key business questions, SQL queries were used to extract meaningful insights:
 
-### Financial Analysis
-a. The top 5 highest-grossing pixar films are 
-   - 'Inside Out 2' with a figure of 1698030965
-   - 'Incredibles 2' with a figure of 1242805359
-   - 'Toy Story 4' with a figure of 1073394593
-   - 'Toy Story 3' with a figure of 1066969703
-   - 'Finding Dory' with a figure of 1028570889
+### 1. Financial Analysis
+a. Top 5 Highest-Grossing Pixar Films
+The top five highest-grossing Pixar films based on worldwide box office revenue are:
+- Inside Out 2 – $1,698,030,965
+- Incredibles 2 – $1,242,805,359
+- Toy Story 4 – $1,073,394,593
+- Toy Story 3 – $1,066,969,703
+- Finding Dory – $1,028,570,889
 
 
-b. Over the years, Pixar films have performed remarkably well financially, with 17 generating high profits, 7 yielding lower profits, and only 4 resulting in losses. 
-Found the relationship between budget and box office earning:
-   - 12 films happen to be 'block busters'
-   - 8 films were a 'Hit'
-   - 2 films were 'Break even'
-   - 5 films were a 'flop'
+b. Financial Performance of Pixar Films
+Over the years, Pixar films have performed remarkably well at the box office:
+   - 17 films generated high profits
+   - 7 films yielded lower profits
+   - 4 films resulted in losses
+There are some terms in the film industry used to define the relationship between budget and box office earning, they include;
+   - flop: A movie that fails financially.
+   - Break-even: Covered costs but no profit whatsoever
+   - Hit: Profitable, made good returns
+   - Blockbuster: A massive success, major profits
+Among Pixar films:
+   - 22 films were classified as Blockbusters
+   - 2 films were classified as Hits
+   - 3 films were classified as Flops
 
      
-c. No Significant correlation btwn Budget and box office. Correlation coefficient is about 0.2 
+c. Budget vs. Box Office Earnings Correlation
+There is a weak positive correlation between a film’s budget and its box office earnings in different regions:
+   - US/Canada Region – Correlation coefficient: 0.1999
+   - International Region – Correlation coefficient: 0.3389
+
+Correlation values between 0.1 and 0.3 indicate a weak positive correlation, meaning budget alone does not significantly influence box office earnings. Other factors, such as film stars, marketing/publicity, and regional audience preferences, may play a more significant role in a film’s success.
 
 
-d. ROI analysis revealed the most profitable films... 'Toy story' has the highest with 1214.79% Return on investment
+d. Top Films by ROI (Return on Investment)
+ROI measures a film’s profitability relative to its budget. The top 5 most profitable Pixar films, ranked by ROI, are:
+   - Toy Story – 1214.79%
+   - Finding Nemo – 826.61%
+   - Inside Out 2 – 749.02%
+   - The Incredibles – 586.35%
+   - Incredibles 2 – 521.40%
 
-### Audience & Critical Reception
-a. A weak positive correlatin between Critics(IMDB, Rotten tomatoes, Metacritics) and box office revenue
+ROI Comparison Across Decades
+A decade-wise comparison shows that the 1990s had the highest average ROI, indicating the most profitable era for Pixar films:
+   - 1990s – 428.77% 
+   - 2000s – 372.28%
+   - 2010s – 314.51%
+   - 2020s – 146.05%
+This trend suggests that earlier Pixar films had higher profitability relative to their budgets, while more recent productions, despite high earnings, may have faced increased production and marketing costs, affecting ROI.
+
+
+
+
+
+### 2. Audience & Critical Reception
+a. Critics (IMDB, Rotten tomatoes, Metacritics) vs. Box office revenue Correlation
+There is a weak positive correlation between a film’s budget and its box office earnings in different regions:
+   - US/Canada Region – Correlation coefficient: 0.1999
+   - International Region – Correlation coefficient: 0.3389
 
 
 b. Distribution of films by CinemaScore rating
