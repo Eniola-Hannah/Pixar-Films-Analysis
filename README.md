@@ -133,7 +133,7 @@ SELECT * FROM cleaned_pixar_people;
 For each of the key business questions, SQL queries were used to extract meaningful insights:
 
 ### 1. Financial Analysis
-a. Top 5 Highest-Grossing Pixar Films
+**a.** Top 5 Highest-Grossing Pixar Films
 The top five highest-grossing Pixar films based on worldwide box office revenue are:
 - Inside Out 2 – $1,698,030,965
 - Incredibles 2 – $1,242,805,359
@@ -142,7 +142,7 @@ The top five highest-grossing Pixar films based on worldwide box office revenue 
 - Finding Dory – $1,028,570,889
 
 
-b. Financial Performance of Pixar Films
+**b.** Financial Performance of Pixar Films
 Over the years, Pixar films have performed remarkably well at the box office:
    - 17 films generated high profits
    - 7 films yielded lower profits
@@ -162,7 +162,7 @@ Among Pixar films:
    - 3 films were classified as Flops
 
      
-c. Budget vs. Box Office Earnings Correlation
+**c.** Budget vs. Box Office Earnings Correlation
 There is a weak positive correlation between a film’s budget and its box office earnings in different regions:
    - US/Canada Region – Correlation coefficient: 0.1999
    - International Region – Correlation coefficient: 0.3389
@@ -171,7 +171,7 @@ There is a weak positive correlation between a film’s budget and its box offic
 Correlation values between 0.1 and 0.3 indicate a weak positive correlation, meaning budget alone does not significantly influence box office earnings. Other factors, such as film stars, marketing/publicity, and regional audience preferences, may play a more significant role in a film’s success.
 
 
-d. Top Films by ROI (Return on Investment)
+**d.** Top Films by ROI (Return on Investment)
 ROI measures a film’s profitability relative to its budget. The top 5 most profitable Pixar films, ranked by ROI, are:
    - Toy Story – 1214.79%
    - Finding Nemo – 826.61%
@@ -192,10 +192,8 @@ This trend suggests that earlier Pixar films had higher profitability relative t
 
 
 
-
-
 ### 2. Audience & Critical Reception
-a. Correlation Between Critics’ Ratings and Box Office Revenue
+**a.** Correlation Between Critics’ Ratings and Box Office Revenue
 There is a weak positive correlation between a film’s ratings from critics and its box office earnings:
    - IMDB vs. Box Office – Correlation coefficient: 0.2962
    - Rotten Tomatoes vs. Box Office – Correlation coefficient: 0.2294
@@ -206,7 +204,7 @@ Since correlation values between 0.1 and 0.3 indicate a weak positive relationsh
 
 However, CinemaScore appears to have a stronger impact on box office earnings than critics' ratings, making it a more reliable indicator of a film’s financial success.
 
-b. Distribution of Films by CinemaScore Rating
+**b.** Distribution of Films by CinemaScore Rating
 CinemaScore ratings reflect audience satisfaction based on surveys conducted at movie theaters. Here’s how Pixar films are distributed based on their CinemaScore ratings:   - Films with ‘A’ CinemaScore rating: 15
    - Films with ‘A+’ CinemaScore rating: 7
    - Films with ‘A-’ CinemaScore rating: 3
@@ -226,7 +224,7 @@ A further analysis was made of average worldwide box office earnings per CinemaS
 
 This reinforces the idea that audience sentiment at cinemas (CinemaScore) is a stronger predictor of box office success than critics' reviews.
     
-c. Trend in Audience Ratings Over the Years
+**c.** Trend in Audience Ratings Over the Years
 An analysis of audience ratings over time reveals that there has been no consistent improvement or decline. The number of films with improved ratings is equal to those with declined ratings, indicating a fluctuating trend rather than a clear upward or downward movement.
    - First Rating: 1 (Initial baseline)
    - Declined Rating: 13
@@ -238,24 +236,104 @@ This suggests that audience perception of Pixar films has remained relatively st
 
 
 ### 3. Awards and Recognition
-a. About 22 films has either been nominated or won an Oscare Award.
+**a.** Top Pixar Films with Awards and Nominations
+The following Pixar films have received the most academy awards and nominations, making them the most critically recognized in the studio’s history:
+   - Monsters, Inc.
+   - Finding Nemo
+   - The Incredibles
+   - Ratatouille
+   - WALL-E
+   - Up
+
+**b.** The Impact of Winning an Oscar on Box Office Success
+Winning an Oscar appears to have a significant impact on a film’s financial success. To analyze this, a new column was added to the Academy Awards table to classify films as Oscar winners or non-winners:
+```sql
+ALTER TABLE academy
+ADD COLUMN Oscar TEXT;
+
+SET SQL_SAFE_UPDATES = 0;
+UPDATE academy
+SET Oscar = CASE WHEN status in ("Won", "Won Special Achievement")
+                 THEN "Oscar_winners" ELSE "Non_Oscar_winners"
+            END;
+```
+With this new classification, further analysis was conducted to compare box office earnings on an average between Oscar-winning and non-winning films. The results indicate that Oscar-winning films tend to generate higher box office revenue, confirming the award’s influence on a film’s financial performance.
+| **Oscar Status**       | **Avg. US/Canada Revenue** | **Avg. International Revenue** | **Avg. Worldwide Revenue** |
+|------------------------|--------------------------|------------------------------|----------------------------|
+| **Oscar Winners**      | $257,697,958.94          | $417,266,685.56              | $674,964,644.50            |
+| **Non-Oscar Winners**  | $257,653,942.30          | $365,363,477.49              | $623,017,419.80            |
 
 
-b. Films with Oscars tend to perform better financially.
+
+**c.** Pixar Films with the Most Academy Award Wins
+
+The following Pixar films have won the most Academy Awards, along with their directors and writers:
+
+- **🏆 The Incredibles**  
+  -  Brad Bird (Director & Writer)
+
+- **🏆Up**  
+  - Pete Docter (Director)  
+  - Bob Peterson (Writer)  
+  - Tom McCarthy (Writer)  
+
+- **🏆 Toy Story 3**  
+  - Lee Unkrich (Director)  
+  - Michael Arndt (Writer)  
+  - John Lasseter (Writer)  
+  - Andrew Stanton (Writer)  
+
+- **🏆 Coco**  
+  - Lee Unkrich (Director)  
+  - Matthew Aldrich (Writer)  
+  - Adrian Molina (Writer)  
+  - Jason Katz (Writer)  
+
+- **🏆 Soul**  
+  - Pete Docter (Director)  
+  - Mike Jones (Writer)  
+  - Kemp Powers (Writer)  
 
 
-c. Certain directors have consistently worked on award-winning films.
 
-### Genre Trends
-a. Adventure and Animation are dominant genres, followed by Comedy.
+### 4. Genre Trends  
+
+#### a. Most Common Genres Among Pixar Films  
+The most frequent genres in Pixar films are:  
+- **Adventure**  - 28 films  
+- **Animation**  - 28 films  
+- **Comedy**  - 21 films  
+
+Adventure and Animation are the dominant genres, followed closely by Comedy.  
 
 
-b. Longer runtimes result in higher earnings.
+#### b. Average Runtime of Pixar Films Over the Decades  
+The average runtime of Pixar films over different periods:  
+- **1990 - 1999** : 89.33 minutes  
+- **2000 - 2009** : 104.00 minutes  
+- **2010 - 2019** : 101.45 minutes  
+- **2020 - Present** : 99.86 minutes  
+
+It is safe to say that longer runtimes generally correlate with higher box office performance.  
+
+| **Period**         | **Avg. Runtime (min)** | **Avg. Box Office Revenue** |
+|----------------|------------------|----------------------------|
+| **2010 - 2019**  | 101.45             | $785,684,220.64             |
+| **2000 - 2009**  | 104.00             | $624,764,356.57             |
+| **2020 - Present** | 99.86              | $451,092,996.33             |
+| **1990 - 1999**  | 89.33              | $423,017,907.00             |
+
+This trend suggests that films with a **longer runtimes (2000 - 2019** tend to generate higher box office revenue.  
 
 
-c. Family and drama tend to receive higher critic and audience scores.
 
-### Creative Team Contributions
+c. All pixar films genre have a good positive critic but family and drama tends to receive higher critic or audience scores. 
+| Genre   | avg. critic   | avg. audience score |
+|--------|--------------|------------------|
+|Family	| 95.0	|8.4   |
+|Drama	| 81.0	| 8.4  |
+
+### 5. Creative Team Contributions
 a. Identified the most frequent directors and writers.
   - John Lasseter as the most frequent director
   - Randy Newman as the most frequent musician
