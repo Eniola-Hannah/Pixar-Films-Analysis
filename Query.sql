@@ -140,14 +140,6 @@ LIMIT 10
 ) 
 SELECT film, CONCAT(ROI, " %") AS ROI FROM CTE;
 
-WITH CTE AS (
-SELECT film, ROUND(((box_office_worldwide - budget)/budget) * 100, 2) AS ROI FROM box_office ORDER BY ROI DESC
-LIMIT 10
-) 
-SELECT c.film, CONCAT(c.ROI, " %") AS ROI, CONCAT(FLOOR(YEAR(p.release_date) / 10) * 10, "s") AS decade FROM CTE AS c
-JOIN pixar_films AS p
-ON c.film = p.film
-ORDER BY decade;
 
 WITH CTE AS (
 SELECT SUM(box_office_worldwide) AS decade_box_office, SUM(budget) AS decade_budget, 
@@ -287,13 +279,13 @@ SET SQL_SAFE_UPDATES = 0;
 UPDATE academy
 SET Oscar = CASE WHEN status in ("Won", "Won Special Achievement") THEN "Oscar_winners" ELSE "Non_Oscar_winners" END;
 
-SELECT Oscar, ROUND(AVG(b.box_office_us_canada), 2) AS avg_us_canada_finance,
-ROUND(AVG(b.box_office_other), 2) AS Avg_international_finace, ROUND(AVG(b.box_office_worldwide), 2) AS Avg_worldwide_finace
+SELECT Oscar, ROUND(AVG(b.box_office_us_canada), 2) AS avg_us_canada_revenue,
+ROUND(AVG(b.box_office_other), 2) AS Avg_international_revenue, ROUND(AVG(b.box_office_worldwide), 2) AS Avg_worldwide_revenue
 FROM academy AS a
 JOIN box_office AS b
 ON a.film = b.film
 GROUP BY Oscar
-order by avg_us_canada_finance desc, Avg_international_finace desc, Avg_worldwide_finace desc;
+order by avg_us_canada_revenue desc, Avg_international_revenue desc, Avg_worldwide_revenue desc;
         
 -- Winning an Oscar does impact a film's financial success
 
@@ -347,7 +339,7 @@ GROUP BY period
 ORDER BY avg_box_office DESC;
 
 -- (c) Are certain genres more likely to receive higher critic or audience scores?
-SELECT g.value, ROUND(AVG(p.metacritic_score), 1) AS avg_critic, ROUND(AVG(p.imdb_score), 1) AS avg_audience_score FROM public_response AS p
+SELECT g.value AS Genre, ROUND(AVG(p.metacritic_score), 1) AS avg_critic, ROUND(AVG(p.imdb_score), 1) AS avg_audience_score FROM public_response AS p
 JOIN genres AS g
 ON p.film = g.film
 WHERE category = "Genre"
@@ -385,7 +377,7 @@ WITH CTE AS (
 SELECT film, ROUND(((box_office_worldwide - budget)/budget) * 100, 2) AS success_rate FROM box_office
 ORDER BY success_rate DESC LIMIT 1
 )
-SELECT cp.name, c.film FROM CTE AS c
+SELECT DISTINCT cp.name, c.film FROM CTE AS c
 JOIN cleaned_pixar_people AS cp
 ON c.film = cp.film;
 
@@ -403,6 +395,3 @@ SELECT * FROM pixar_films;
 SELECT * FROM cleaned_pixar_people;  
 SELECT * FROM pixar_people;  
 SELECT * FROM public_response;
-
-SELECT p.film, b.film from pixar_films as p
-left join box_office as b on p.film = b.film;
