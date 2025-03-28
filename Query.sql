@@ -67,35 +67,36 @@ ORDER BY box_office_worldwide DESC LIMIT 5;
 WITH CTE AS (
 SELECT film, budget, (box_office_worldwide - budget) AS profit FROM box_office 
 )
-SELECT Year(p.Release_date) AS Movie_year, c.film, C.PROFIT, CASE 
-WHEN c.profit > c.budget * 2 THEN "High profit" WHEN c.profit > 0 THEN "Low profit" ELSE "Loss" END AS financial_performance
-FROM CTE AS c INNER JOIN pixar_films AS p
+SELECT Year(p.Release_date) AS Movie_year, p.film, C.PROFIT, CASE 
+WHEN c.profit > c.budget * 2 THEN "High profit" 
+WHEN c.profit > 0 AND c.profit < c.budget * 2 THEN "Low profit" ELSE "Loss" END AS financial_performance
+FROM CTE AS c RIGHT JOIN pixar_films AS p
 ON c.film = p.film
 ORDER BY Movie_year;
 
 SELECT film, budget, box_office_worldwide, CASE 
-			WHEN box_office_worldwide < (budget * 2) THEN "Flop"                                   -- Lost money or barely recovered costs
-			WHEN box_office_worldwide BETWEEN (budget * 2) AND (budget * 2.5) THEN "Break Even"    -- Covered costs but no major profit
-			WHEN box_office_worldwide BETWEEN (budget * 2.5) AND (budget * 4.5) THEN "Hit"         --  Profitable, made good returns
-            WHEN box_office_worldwide > (budget * 4.5) THEN "Block buster"                         -- A massive success, major profits
+			WHEN box_office_worldwide < budget THEN "Flop"                                  
+			WHEN box_office_worldwide = budget THEN "Break-even"                                     -- Covered costs but no profit
+			WHEN  box_office_worldwide > budget AND box_office_worldwide <= (budget * 2) THEN "Hit"   --  Profitable, made good returns
+            WHEN box_office_worldwide > (budget * 2) THEN "Blockbuster"                               -- A massive success, major profits
 			END AS relationship_term FROM box_office
-ORDER BY box_office_worldwide;
+ORDER BY relationship_term;
 
 WITH CTE AS (
 SELECT film, budget, box_office_worldwide, CASE
-			WHEN box_office_worldwide < (budget * 2) THEN "Flop"    
-			WHEN box_office_worldwide BETWEEN (budget * 2) AND (budget * 2.5) THEN "Break Even"
-			WHEN box_office_worldwide BETWEEN (budget * 2.5) AND (budget * 4.5) THEN "Hit"
-            WHEN box_office_worldwide > (budget * 4.5) THEN "Block buster"
+			WHEN box_office_worldwide < budget THEN "Flop"                                  
+			WHEN box_office_worldwide = budget THEN "Break-even"
+			WHEN  box_office_worldwide > budget AND box_office_worldwide <= (budget * 2) THEN "Hit"
+            WHEN box_office_worldwide > (budget * 2) THEN "Blockbuster"
 			END AS relationship_term FROM box_office
 ORDER BY box_office_worldwide
 ) 
 SELECT film AS profitable_films FROM CTE
-WHERE relationship_term = "Block buster";
+WHERE relationship_term = "Blockbuster";
 
-       
 
 -- (c) How does budget correlate with box office performance across different regions (US/Canada vs. International)?
+
 SELECT ((COUNT(*) * SUM(XY)) - (SUM(X) * SUM(Y))) / 
 SQRT( 
 	((COUNT(*) * SUM(X_squared)) - (SUM(X) * SUM(X))) * 
@@ -147,6 +148,15 @@ SELECT c.film, CONCAT(c.ROI, " %") AS ROI, CONCAT(FLOOR(YEAR(p.release_date) / 1
 JOIN pixar_films AS p
 ON c.film = p.film
 ORDER BY decade;
+
+WITH CTE AS (
+SELECT SUM(box_office_worldwide) AS decade_box_office, SUM(budget) AS decade_budget, 
+CONCAT(FLOOR(YEAR(p.release_date) / 10) * 10, "s") AS decade FROM box_office AS b
+JOIN pixar_films AS p
+ON b.film = p.film
+GROUP BY decade
+ORDER BY decade)
+SELECT decade, CONCAT(ROUND(((decade_box_office - decade_budget)/decade_budget) * 100, 2), "%") AS ROI FROM CTE;
 
 
 
@@ -223,28 +233,69 @@ ORDER BY avg_worldwide_revenue DESC;
 
 
 -- (c) Have audience ratings improved or declined over the years?
--- Lag function
+WITH CTE AS (
+SELECT pr.*, YEAR(p.Release_date) AS year, LAG(rotten_tomatoes_score) OVER(ORDER BY p.release_date) AS prev_rotten_score 
+FROM public_response AS pr INNER JOIN pixar_films AS p 
+ON pr.film = p.film
+), 
+diff_table AS (
+SELECT year, film, rotten_tomatoes_score, prev_rotten_score, 
+CONCAT(ROUND(((rotten_tomatoes_score - prev_rotten_score)/prev_rotten_score) * 100, 2), "%") AS percentage_diff FROM CTE
+ORDER BY year
+) SELECT year, rotten_tomatoes_score, prev_rotten_score, CASE 
+WHEN percentage_diff IS NULL THEN "First Rating" 
+WHEN percentage_diff > 0 THEN "Improved Rating" 
+WHEN percentage_diff = 0 THEN "No changes"
+ELSE "Declined Rating" END AS Rating_State 
+FROM diff_table;
+
+WITH CTE AS (
+SELECT pr.*, YEAR(p.Release_date) AS year, LAG(rotten_tomatoes_score) OVER(ORDER BY p.release_date) AS prev_rotten_score 
+FROM public_response AS pr INNER JOIN pixar_films AS p 
+ON pr.film = p.film
+), 
+diff_table AS (
+SELECT year, film, rotten_tomatoes_score, prev_rotten_score, 
+CONCAT(ROUND(((rotten_tomatoes_score - prev_rotten_score)/prev_rotten_score) * 100, 2), "%") AS percentage_diff FROM CTE
+ORDER BY year
+), newTable AS (
+SELECT year, rotten_tomatoes_score, prev_rotten_score, CASE 
+WHEN percentage_diff IS NULL THEN "First Rating" 
+WHEN percentage_diff > 0 THEN "Improved Rating" 
+WHEN percentage_diff = 0 THEN "No changes"
+ELSE "Declined Rating" END AS Rating_State 
+FROM diff_table
+) SELECT Rating_State, COUNT(*) AS count FROM newTable
+GROUP BY Rating_State;
 
 
 -- 3.	Awards and Recognition:
 -- (a) Which Pixar films have won or been nominated for Academy Awards?
-SELECT film, award_type, status FROM academy
-WHERE status in ("Won", "Nominated");
+with cte as (SELECT distinct film, status FROM academy
+WHERE status in ("Won", "Nominated"))
+select film, count(film) from CTE
+GROUP BY FILM
+ORDER BY Count(film) DESC;
 
 -- (b) How does winning an Oscar impact a film's financial success?
-SELECT CASE 
-		WHEN a.status = "won" THEN "Oscar_winners"
-        ELSE "Non_Oscar_winners"
-        END AS Oscar, 
-        ROUND(AVG(b.box_office_us_canada), 2) AS avg_us_canada_finance,
-        ROUND(AVG(b.box_office_other), 2) AS Avg_international_finace,
-        ROUND(AVG(b.box_office_worldwide), 2) AS Avg_worldwide_finace
-FROM academy AS a LEFT JOIN box_office AS b
+SELECT * FROM academy;
+
+ALTER TABLE academy
+ADD COLUMN Oscar TEXT;
+
+SET SQL_SAFE_UPDATES = 0;
+UPDATE academy
+SET Oscar = CASE WHEN status in ("Won", "Won Special Achievement") THEN "Oscar_winners" ELSE "Non_Oscar_winners" END;
+
+SELECT Oscar, ROUND(AVG(b.box_office_us_canada), 2) AS avg_us_canada_finance,
+ROUND(AVG(b.box_office_other), 2) AS Avg_international_finace, ROUND(AVG(b.box_office_worldwide), 2) AS Avg_worldwide_finace
+FROM academy AS a
+JOIN box_office AS b
 ON a.film = b.film
-GROUP BY  a.status
-ORDER BY Avg_worldwide_finace DESC;
+GROUP BY Oscar
+order by avg_us_canada_finance desc, Avg_international_finace desc, Avg_worldwide_finace desc;
         
--- Oscar winning films has the highest financial success
+-- Winning an Oscar does impact a film's financial success
 
 
 -- (c) Which directors and writers have worked on the most award-winning Pixar films?
@@ -257,18 +308,20 @@ ORDER BY count DESC
 SELECT * FROM CTE 
 WHERE count = (SELECT MAX(count) FROM CTE)
 ) 
-SELECT c.name, c.role_type, m.film FROM cleaned_pixar_people AS c
+SELECT DISTINCT c.name, m.film FROM cleaned_pixar_people AS c
 JOIN most_award_winning_film AS m
 ON m.film = c.film
 WHERE role_type IN ("Director", "Screenwriter", "Storywriter");
 
 
 -- 4.	Genre Trends and Film Characteristics:
--- (a) Wich genres (Adventure, Comedy, Fantasy, etc.) are most common among Pixar films?
+-- (a) Which genres (Adventure, Comedy, Fantasy, etc.) are most common among Pixar films?
 SELECT value, COUNT(value) AS count FROM genres
 WHERE category = "Genre"
 GROUP BY value
 ORDER BY count DESC;
+
+-- Adventure and Animation are dominant genres, followed by Comedy
 
 -- (b) What is the average runtime of Pixar films over different periods, and does it affect box office performance?
 SELECT min(YEAR(Release_date)), max(YEAR(Release_date)) from pixar_films;
@@ -303,10 +356,53 @@ ORDER BY avg_critic DESC, avg_audience_score DESC;
 
 
 
+-- 5. Creative Team Contributions:
+-- (a) Who are the most frequent directors and writers in Pixar's history?
+WITH CTE AS (
+SELECT name, role_type, COUNT(name) AS frequency FROM cleaned_pixar_people
+WHERE role_type IN ("Director", "Screenwriter", "Storywriter")
+GROUP BY name, role_type
+ORDER BY frequency DESC
+), Ranked_Table AS (
+SELECT *, RANK() OVER(partition by role_type ORDER BY frequency DESC) AS Ranking FROM CTE
+) 
+SELECT name, role_type, frequency FROM Ranked_Table WHERE Ranking = 1;
+
+
+-- (b) Is there a correlation between specific creators and the success of films?
+with cte as (
+select film, count(name) AS No_of_creators from cleaned_pixar_people
+group by film
+) SELECT c.film, c.No_of_creators, ROUND(((box_office_worldwide - budget)/budget) * 100, 2) AS success_rate FROM box_office AS b
+join cte as c on b.film = c.film
+order by success_rate desc;
+
+
+-- (c) Which individuals have worked on the most financially successful and critically acclaimed Pixar films?
+
+-- Individuals that worked on the most financially successful film
+WITH CTE AS (
+SELECT film, ROUND(((box_office_worldwide - budget)/budget) * 100, 2) AS success_rate FROM box_office
+ORDER BY success_rate DESC LIMIT 1
+)
+SELECT cp.name, c.film FROM CTE AS c
+JOIN cleaned_pixar_people AS cp
+ON c.film = cp.film;
+
+-- Individuals that worked on critically acclaimed films (IMDB score above 8.0 is referred to as critically acclaimed)
+SELECT c.name, b.film, b.imdb_score FROM cleaned_pixar_people AS c
+JOIN public_response AS b
+ON c.film = b.film
+WHERE b.imdb_score > 8.0
+ORDER BY b.imdb_score DESC;
+
 SELECT * FROM academy;
 SELECT * FROM box_office;
 SELECT * FROM genres;
 SELECT * FROM pixar_films;
 SELECT * FROM cleaned_pixar_people;  
-SELECT * FROM box_office;
+SELECT * FROM pixar_people;  
 SELECT * FROM public_response;
+
+SELECT p.film, b.film from pixar_films as p
+left join box_office as b on p.film = b.film;
