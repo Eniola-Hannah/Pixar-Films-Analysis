@@ -373,7 +373,7 @@ An analysis was conducted to determine if specific creators consistently influen
 This suggests that **Pixar's success may be driven by other factors rather than some specific creators.**  
 
 
-### c. Individuals Behind the Most Financially Successful & Critically Acclaimed Pixar Films  
+#### c. Individuals Behind the Most Financially Successful & Critically Acclaimed Pixar Films  
 - Most Financially Successful Film (Based on ROI): *Toy Story*
 The team behind *Toy Story*, Pixar’s most financially successful film (based on Return on Investment), includes:  
    - John Lasseter
@@ -400,40 +400,40 @@ The films with an **IMDB score above 8.0** are:
    - *Inside Out*
 
 The distinct individuals who worked on these films are:  
-   - **Adrian Molina**  
-   - **Alec Sokolow**  
-   - **Andrew Stanton**  
-   - **Bob Peterson**  
-   - **Bonnie Arnold**  
-   - **Brad Bird**  
-   - **Brad Lewis**  
-   - **Darla K. Anderson**  
-   - **Dan Gerson**  
-   - **David Reynolds**  
-   - **David Silverman**  
-   - **Graham Walters**  
-   - **Jill Culton**  
-   - **Jim Capobianco**  
-   - **Jim Morris**  
-   - **Jim Reardon**  
-   - **Joe Ranft**  
-   - **Joel Cohen**  
-   - **Jonas Rivera**  
-   - **Joss Whedon**  
-   - **Jan Pinkava**  
-   - **Jeff Pidgeon**  
-   - **Jason Katz**  
-   - **Josh Cooley**  
-   - **Lee Unkrich**  
-   - **Matthew Aldrich**  
-   - **Meg LeFauve**  
-   - **Michael Arndt**  
-   - **Michael Giacchino**  
-   - **Pete Docter**  
-   - **Ralph Eggleston**  
-   - **Randy Newman**  
-   - **Ronnie del Carmen**  
-   - **Thomas Newman**  
+      - Adrian Molina  
+      - Alec Sokolow
+      - Andrew Stanton
+      - Bob Peterson  
+      - Bonnie Arnold  
+      - Brad Bird  
+      - Brad Lewis  
+      - Darla K. Anderson  
+      - Dan Gerson  
+      - David Reynolds  
+      - David Silverman  
+      - Graham Walters  
+      - Jill Culton  
+      - Jim Capobianco  
+      - Jim Morris  
+      - Jim Reardon  
+      - Joe Ranft  
+      - Joel Cohen  
+      - Jonas Rivera  
+      - Joss Whedon  
+      - Jan Pinkava  
+      - Jeff Pidgeon  
+      - Jason Katz  
+      - Josh Cooley  
+      - Lee Unkrich  
+      - Matthew Aldrich  
+      - Meg LeFauve  
+      - Michael Arndt  
+      - Michael Giacchino  
+      - Pete Docter  
+      - Ralph Eggleston  
+      - Randy Newman  
+      - Ronnie del Carmen  
+      - Thomas Newman  
 
 This highlights the **collaborative nature of Pixar’s success**, where multiple creators contribute across various films to achieve both critical and financial success.  
 
@@ -454,7 +454,7 @@ This highlights the **collaborative nature of Pixar’s success**, where multipl
 7️⃣ **Data-Driven Decision Making** – Critics' ratings have a **weak correlation** with box office revenue. Focus on **CinemaScore and audience reviews** when making creative choices.  
 
 8️⃣ **Strengthen International Market Strategies** – International audiences are crucial (~$365M+ revenue). **Localized marketing & dubbing strategies** can enhance global reach.  
-
+---
 
 
 ## Files-Detail
