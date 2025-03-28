@@ -400,40 +400,40 @@ The films with an **IMDB score above 8.0** are:
    - *Inside Out*
 
 The distinct individuals who worked on these films are:  
-      - Adrian Molina  
-      - Alec Sokolow
-      - Andrew Stanton
-      - Bob Peterson  
-      - Bonnie Arnold  
-      - Brad Bird  
-      - Brad Lewis  
-      - Darla K. Anderson  
-      - Dan Gerson  
-      - David Reynolds  
-      - David Silverman  
-      - Graham Walters  
-      - Jill Culton  
-      - Jim Capobianco  
-      - Jim Morris  
-      - Jim Reardon  
-      - Joe Ranft  
-      - Joel Cohen  
-      - Jonas Rivera  
-      - Joss Whedon  
-      - Jan Pinkava  
-      - Jeff Pidgeon  
-      - Jason Katz  
-      - Josh Cooley  
-      - Lee Unkrich  
-      - Matthew Aldrich  
-      - Meg LeFauve  
-      - Michael Arndt  
-      - Michael Giacchino  
-      - Pete Docter  
-      - Ralph Eggleston  
-      - Randy Newman  
-      - Ronnie del Carmen  
-      - Thomas Newman  
+- Adrian Molina  
+- Alec Sokolow
+- Andrew Stanton
+- Bob Peterson  
+- Bonnie Arnold  
+- Brad Bird  
+- Brad Lewis  
+- Darla K. Anderson  
+- Dan Gerson  
+- David Reynolds  
+- David Silverman  
+- Graham Walters  
+- Jill Culton  
+- Jim Capobianco  
+- Jim Morris  
+- Jim Reardon  
+- Joe Ranft  
+- Joel Cohen  
+- Jonas Rivera  
+- Joss Whedon  
+- Jan Pinkava  
+- Jeff Pidgeon  
+- Jason Katz  
+- Josh Cooley  
+- Lee Unkrich  
+- Matthew Aldrich  
+- Meg LeFauve  
+- Michael Arndt  
+- Michael Giacchino  
+- Pete Docter  
+- Ralph Eggleston  
+- Randy Newman  
+- Ronnie del Carmen  
+- Thomas Newman  
 
 This highlights the **collaborative nature of Pixar’s success**, where multiple creators contribute across various films to achieve both critical and financial success.  
 
