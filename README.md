@@ -9,7 +9,7 @@
 - [Project Objective](#Project-Objective)
 - [Data Cleaning](#Data-Cleaning)
 - [Data Exploration and Insights](#Data-Exploration-and-Insights)
-- [Recommendations](#Recommendations)
+- [Recommendations](#Recommendations-for-Pixar-Film-Studio)
 - [Files Details](#Files-Detail)
 - [Conclusion](#Conclusion)
 
@@ -98,7 +98,7 @@ With the evolution of the entertainment industry, analyzing Pixar films' perform
    - Which individuals have worked on the most financially successful and critically acclaimed Pixar films?
 
 
-## Data-Exploration-and-Insights
+## Data-Cleaning
 During data cleaning, the following changes were made:
 - Standardizing Date formats
 ```sql
@@ -128,12 +128,13 @@ SELECT * FROM cleaned_pixar_people;
 ---
 
 
-## Data-Insights
+## Data-Exploration-and-Insights
 
 For each of the key business questions, SQL queries were used to extract meaningful insights:
 
 ### 1. Financial Analysis
-**a.** Top 5 Highest-Grossing Pixar Films
+#### a. Top 5 Highest-Grossing Pixar Films
+
 The top five highest-grossing Pixar films based on worldwide box office revenue are:
 - Inside Out 2 – $1,698,030,965
 - Incredibles 2 – $1,242,805,359
@@ -142,7 +143,9 @@ The top five highest-grossing Pixar films based on worldwide box office revenue 
 - Finding Dory – $1,028,570,889
 
 
-**b.** Financial Performance of Pixar Films
+
+#### b. Financial Performance of Pixar Films
+
 Over the years, Pixar films have performed remarkably well at the box office:
    - 17 films generated high profits
    - 7 films yielded lower profits
@@ -161,8 +164,10 @@ Among Pixar films:
    - 2 films were classified as Hits
    - 3 films were classified as Flops
 
+
      
-**c.** Budget vs. Box Office Earnings Correlation
+#### c. Budget vs. Box Office Earnings Correlation
+
 There is a weak positive correlation between a film’s budget and its box office earnings in different regions:
    - US/Canada Region – Correlation coefficient: 0.1999
    - International Region – Correlation coefficient: 0.3389
@@ -171,7 +176,9 @@ There is a weak positive correlation between a film’s budget and its box offic
 Correlation values between 0.1 and 0.3 indicate a weak positive correlation, meaning budget alone does not significantly influence box office earnings. Other factors, such as film stars, marketing/publicity, and regional audience preferences, may play a more significant role in a film’s success.
 
 
-**d.** Top Films by ROI (Return on Investment)
+
+#### d. Top Films by ROI (Return on Investment)
+
 ROI measures a film’s profitability relative to its budget. The top 5 most profitable Pixar films, ranked by ROI, are:
    - Toy Story – 1214.79%
    - Finding Nemo – 826.61%
@@ -193,7 +200,8 @@ This trend suggests that earlier Pixar films had higher profitability relative t
 
 
 ### 2. Audience & Critical Reception
-**a.** Correlation Between Critics’ Ratings and Box Office Revenue
+#### a. Correlation Between Critics’ Ratings and Box Office Revenue
+
 There is a weak positive correlation between a film’s ratings from critics and its box office earnings:
    - IMDB vs. Box Office – Correlation coefficient: 0.2962
    - Rotten Tomatoes vs. Box Office – Correlation coefficient: 0.2294
@@ -204,7 +212,10 @@ Since correlation values between 0.1 and 0.3 indicate a weak positive relationsh
 
 However, CinemaScore appears to have a stronger impact on box office earnings than critics' ratings, making it a more reliable indicator of a film’s financial success.
 
-**b.** Distribution of Films by CinemaScore Rating
+
+
+#### b. Distribution of Films by CinemaScore Rating
+
 CinemaScore ratings reflect audience satisfaction based on surveys conducted at movie theaters. Here’s how Pixar films are distributed based on their CinemaScore ratings:   - Films with ‘A’ CinemaScore rating: 15
    - Films with ‘A+’ CinemaScore rating: 7
    - Films with ‘A-’ CinemaScore rating: 3
@@ -223,8 +234,11 @@ A further analysis was made of average worldwide box office earnings per CinemaS
 
 
 This reinforces the idea that audience sentiment at cinemas (CinemaScore) is a stronger predictor of box office success than critics' reviews.
-    
-**c.** Trend in Audience Ratings Over the Years
+
+
+
+#### c. Trend in Audience Ratings Over the Years
+
 An analysis of audience ratings over time reveals that there has been no consistent improvement or decline. The number of films with improved ratings is equal to those with declined ratings, indicating a fluctuating trend rather than a clear upward or downward movement.
    - First Rating: 1 (Initial baseline)
    - Declined Rating: 13
@@ -235,8 +249,10 @@ An analysis of audience ratings over time reveals that there has been no consist
 This suggests that audience perception of Pixar films has remained relatively stable over time, with both positive and negative shifts occurring in equal measure.
 
 
+
 ### 3. Awards and Recognition
-**a.** Top Pixar Films with Awards and Nominations
+#### a. Top Pixar Films with Awards and Nominations
+
 The following Pixar films have received the most academy awards and nominations, making them the most critically recognized in the studio’s history:
    - Monsters, Inc.
    - Finding Nemo
@@ -245,7 +261,8 @@ The following Pixar films have received the most academy awards and nominations,
    - WALL-E
    - Up
 
-**b.** The Impact of Winning an Oscar on Box Office Success
+#### b. The Impact of Winning an Oscar on Box Office Success
+
 Winning an Oscar appears to have a significant impact on a film’s financial success. To analyze this, a new column was added to the Academy Awards table to classify films as Oscar winners or non-winners:
 ```sql
 ALTER TABLE academy
@@ -258,6 +275,7 @@ SET Oscar = CASE WHEN status in ("Won", "Won Special Achievement")
             END;
 ```
 With this new classification, further analysis was conducted to compare box office earnings on an average between Oscar-winning and non-winning films. The results indicate that Oscar-winning films tend to generate higher box office revenue, confirming the award’s influence on a film’s financial performance.
+
 | **Oscar Status**       | **Avg. US/Canada Revenue** | **Avg. International Revenue** | **Avg. Worldwide Revenue** |
 |------------------------|--------------------------|------------------------------|----------------------------|
 | **Oscar Winners**      | $257,697,958.94          | $417,266,685.56              | $674,964,644.50            |
@@ -265,7 +283,7 @@ With this new classification, further analysis was conducted to compare box offi
 
 
 
-**c.** Pixar Films with the Most Academy Award Wins
+#### c. Pixar Films with the Most Academy Award Wins
 
 The following Pixar films have won the most Academy Awards, along with their directors and writers:
 
@@ -297,8 +315,8 @@ The following Pixar films have won the most Academy Awards, along with their dir
 
 
 ### 4. Genre Trends  
-
 #### a. Most Common Genres Among Pixar Films  
+
 The most frequent genres in Pixar films are:  
 - **Adventure**  - 28 films  
 - **Animation**  - 28 films  
@@ -307,7 +325,9 @@ The most frequent genres in Pixar films are:
 Adventure and Animation are the dominant genres, followed closely by Comedy.  
 
 
+
 #### b. Average Runtime of Pixar Films Over the Decades  
+
 The average runtime of Pixar films over different periods:  
 - **1990 - 1999** : 89.33 minutes  
 - **2000 - 2009** : 104.00 minutes  
@@ -327,31 +347,113 @@ This trend suggests that films with a **longer runtimes (2000 - 2019** tend to g
 
 
 
-c. All pixar films genre have a good positive critic but family and drama tends to receive higher critic or audience scores. 
-| Genre   | avg. critic   | avg. audience score |
-|--------|--------------|------------------|
-|Family	| 95.0	|8.4   |
-|Drama	| 81.0	| 8.4  |
+#### c. Critics' & Audience Scores by Genre  
+
+All Pixar film genres receive positive critical reviews, but **Family** and **Drama** tend to have the highest critic and audience scores.  
+
+| **Genre**  | **Avg. Critic Score**  | **Avg. Audience Score**  |
+|-----------|------------------|------------------|
+| **Family**  | 95.0               | 8.4               |
+| **Drama**   | 81.0               | 8.4               |
+
+These findings suggest that **family-oriented and dramatic Pixar films resonate more strongly** with both critics and audiences.  
+
+
 
 ### 5. Creative Team Contributions
-a. Identified the most frequent directors and writers.
-  - John Lasseter as the most frequent director
-  - Randy Newman as the most frequent musician
-  - Andrew Stanton as the most frequent writer.
+#### a. Most Frequent Directors and Writers  
+Pixar has a diverse pool of creators, but the most frequent contributors are:  
+- **John Lasseter** (Director) – 5 films  
+- **Andrew Stanton** (Screenwriter) – 8 films  
+- **Andrew Stanton** (Storywriter) – 8 films  
 
     
-b. Kelsey Mann, Andrea Datzman, Dave Holstein were the creators with the most financial success of pixar films
+#### b. Correlation Between Specific Creators and Film Success  
+An analysis was conducted to determine if specific creators consistently influenced a film’s success. The findings showed **no significant correlation** between creators and box office revenue or critical reception.  
+This suggests that **Pixar's success may be driven by other factors rather than some specific creators.**  
 
 
-c. Analyzed individuals that worked on the most financially successful film (Inside out 2) and individuals that worked on critically acclaimed films (IMDB score above 8.0 is critically acclaimed)
+### c. Individuals Behind the Most Financially Successful & Critically Acclaimed Pixar Films  
+- Most Financially Successful Film (Based on ROI): *Toy Story*
+The team behind *Toy Story*, Pixar’s most financially successful film (based on Return on Investment), includes:  
+   - John Lasseter
+   - Randy Newman
+   - Bonnie Arnold
+   - Ralph Guggenheim
+   - Joel Cohen
+   - Alec Sokolow
+   - Andrew Stanton
+   - Joss Whedon
+   - Pete Docter
+   - Joe Ranft
 
 
-## Recommendations
-- Pixar films with A or A+ CinemaScore (strong audience approval) tend to bring in the most revenue. It is important to prioritize audience engagement strategies by maintaining high storytelling quality, character development, and emotional depth in future films. 
-- Increase investment in genres that historically perform well.
-- Leverage successful directors and writers for future projects
-- Optimize budget allocation to maximize ROI.
-- Enhance audience engagement strategies to maintain high ratings.
+- Critically acclaimed films are pixar films with IMDB Score above 8.0
+The films with an **IMDB score above 8.0** are:  
+   - *WALL-E*  
+   - *Coco*  
+   - *Toy Story*  
+   - *Up*  
+   - *Finding Nemo*  
+   - *Monsters, Inc.*  
+   - *Ratatouille*  
+   - *Inside Out*
+
+The distinct individuals who worked on these films are:  
+   - **Adrian Molina**  
+   - **Alec Sokolow**  
+   - **Andrew Stanton**  
+   - **Bob Peterson**  
+   - **Bonnie Arnold**  
+   - **Brad Bird**  
+   - **Brad Lewis**  
+   - **Darla K. Anderson**  
+   - **Dan Gerson**  
+   - **David Reynolds**  
+   - **David Silverman**  
+   - **Graham Walters**  
+   - **Jill Culton**  
+   - **Jim Capobianco**  
+   - **Jim Morris**  
+   - **Jim Reardon**  
+   - **Joe Ranft**  
+   - **Joel Cohen**  
+   - **Jonas Rivera**  
+   - **Joss Whedon**  
+   - **Jan Pinkava**  
+   - **Jeff Pidgeon**  
+   - **Jason Katz**  
+   - **Josh Cooley**  
+   - **Lee Unkrich**  
+   - **Matthew Aldrich**  
+   - **Meg LeFauve**  
+   - **Michael Arndt**  
+   - **Michael Giacchino**  
+   - **Pete Docter**  
+   - **Ralph Eggleston**  
+   - **Randy Newman**  
+   - **Ronnie del Carmen**  
+   - **Thomas Newman**  
+
+This highlights the **collaborative nature of Pixar’s success**, where multiple creators contribute across various films to achieve both critical and financial success.  
+
+## Recommendations-for-Pixar-Film-Studio  
+
+1️⃣ **Prioritize Audience Satisfaction** – Films with **A+ CinemaScore** ratings have the highest box office success (~$762M). Conduct more test screenings to refine storytelling and character engagement.  
+
+2️⃣ **Leverage Awards for Financial Success** – Oscar-winning films **outperform** non-winners in box office revenue (~$675M vs. $623M). Focus on **high-quality animation and storytelling** for award recognition.  
+
+3️⃣ **Optimize Film Runtimes** – The most successful films have **100-104 minutes** of runtime. Avoid shorter films (<90 mins) as they correlate with lower earnings.  
+
+4️⃣ **Strengthen Creative Collaboration** – Retain top-performing **directors and writers** (John Lasseter, Andrew Stanton, Pete Docter) and encourage innovation within teams.  
+
+5️⃣ **Expand High-Performing Genres** – **Adventure & Animation dominate Pixar’s success**, while **Family & Drama films receive the highest ratings**. Exploring **new hybrid genres** (e.g., Sci-Fi, Fantasy) could boost audience appeal.  
+
+6️⃣ **Engage & Retain Audiences** – Audience sentiment has been **fluctuating** over the years. Conduct **post-release surveys and interactive campaigns** to improve engagement.  
+
+7️⃣ **Data-Driven Decision Making** – Critics' ratings have a **weak correlation** with box office revenue. Focus on **CinemaScore and audience reviews** when making creative choices.  
+
+8️⃣ **Strengthen International Market Strategies** – International audiences are crucial (~$365M+ revenue). **Localized marketing & dubbing strategies** can enhance global reach.  
 
 
 
@@ -361,6 +463,7 @@ c. Analyzed individuals that worked on the most financially successful film (Ins
 |--------------------------------|-------------|
 | `Business Problem Statement.docx` | Objective of the Analysis. |
 | `Query.sql`                   | Contains SQL scripts for data extraction and analysis. |
+| `README.md`                   | Project documentation, including objectives, data details, analysis, and insights. |
 | `pixar_films.csv`             | Contains core details about each Pixar film. |
 | `box_office.csv`              | Financial performance data. |
 | `academy.csv`                 | Academy Award nominations and wins. |
@@ -368,8 +471,12 @@ c. Analyzed individuals that worked on the most financially successful film (Ins
 | `public_response.csv`         | Audience ratings and critic scores. |
 | `pixar_people.csv`           | Information about key contributors (directors, writers, etc.)... Contains duplicate records. |
 | `cleaned_pixar_people.csv`   | Information about key contributors (directors, writers, etc.)... With no duplicates. |
-| `README.md`                   | Project documentation, including objectives, data details, analysis, and insights. |
 
 
-## Conclusion
-This project provides a comprehensive analysis of Pixar films, offering valuable insights into financial performance, audience reception, awards, genre trends, and creative team contributions. The findings will help guide strategic decision-making for future Pixar productions.
+## Conclusion  
+This analysis of Pixar films provides valuable insights into the key factors influencing financial success, audience reception, and critical acclaim. While **CinemaScore ratings strongly correlate with box office performance**, traditional critics' reviews (IMDB, Rotten Tomatoes, Metacritic) show a **weak relationship** with revenue.  
+
+**Award-winning films, strategic runtimes, and strong creative teams** significantly contribute to success, while high-performing genres like **Adventure, Animation, and Family films** continue to dominate.  
+
+By leveraging **data-driven decision-making, optimizing marketing strategies, and prioritizing audience engagement**, Pixar can further enhance its impact in the animation industry. 
+
